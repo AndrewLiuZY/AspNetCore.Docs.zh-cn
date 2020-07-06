@@ -43,18 +43,18 @@ ms.locfileid: "85459761"
 | --------------------------------------------------------------- | ------ |
 | [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | 缓存可以存储响应。 |
 | [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | 共享缓存不能存储响应。 专用缓存可以存储和重用响应。 |
-| [最大期限](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | 客户端不接受其期限大于指定秒数的响应。 示例： `max-age=60` （60秒）， `max-age=2592000` （1个月） |
+| [max-age](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | 客户端不接受其期限大于指定秒数的响应。 示例： `max-age=60` （60秒）， `max-age=2592000` （1个月） |
 | [no-cache](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **请求时**：缓存不能使用存储的响应来满足请求。 源服务器重新生成客户端的响应，中间件更新其缓存中存储的响应。<br><br>**响应：在**源服务器上没有验证的后续请求不得使用响应。 |
-| [无-商店](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **请求时**：缓存不能存储请求。<br><br>**响应**：缓存不能存储响应的任何部分。 |
+| [no-store](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **请求时**：缓存不能存储请求。<br><br>**响应**：缓存不能存储响应的任何部分。 |
 
 下表显示了在缓存中扮演角色的其他缓存标头。
 
 | Header                                                     | 函数 |
 | ---------------------------------------------------------- | -------- |
 | [Age](https://tools.ietf.org/html/rfc7234#section-5.1)     | 在源服务器上生成或成功验证响应以来的时间量（以秒为单位）。 |
-| [完](https://tools.ietf.org/html/rfc7234#section-5.3) | 响应被视为过时的时间。 |
-| [杂](https://tools.ietf.org/html/rfc7234#section-5.4)  | 存在，以便向后兼容 HTTP/1.0 缓存以设置 `no-cache` 行为。 如果该 `Cache-Control` 标头存在，则将 `Pragma` 忽略该标头。 |
-| [大](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | 指定不能发送缓存的响应，除非 `Vary` 缓存响应的原始请求和新请求中的所有标头字段都匹配。 |
+| [Expires](https://tools.ietf.org/html/rfc7234#section-5.3) | 响应被视为过时的时间。 |
+| [Pragma	](https://tools.ietf.org/html/rfc7234#section-5.4)  | 存在，以便向后兼容 HTTP/1.0 缓存以设置 `no-cache` 行为。 如果该 `Cache-Control` 标头存在，则将 `Pragma` 忽略该标头。 |
+| [Vary](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | 指定不能发送缓存的响应，除非 `Vary` 缓存响应的原始请求和新请求中的所有标头字段都匹配。 |
 
 ## <a name="http-based-caching-respects-request-cache-control-directives"></a>基于 HTTP 的缓存遵循请求缓存控制指令
 
@@ -115,7 +115,7 @@ Razor使用分布式缓存标记帮助程序在分布式云和 web 场方案中�
 * 根据中设置的属性写出适当的标头 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> 。
 * 如果设置了，则更新响应缓存 HTTP 功能 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> 。
 
-### <a name="vary"></a>大
+### <a name="vary"></a>Vary
 
 仅当设置了属性时，才写入此标头 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> 。 属性设置为 `Vary` 属性的值。 下面的示例使用 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> 属性：
 
@@ -148,7 +148,7 @@ Cache-Control: no-store,no-cache
 Pragma: no-cache
 ```
 
-### <a name="location-and-duration"></a>位置和持续时间
+### <a name="location-and-duration"></a>Location 和 Duration
 
 若要启用缓存， <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> 必须将设置为正值，并且 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> 必须为 `Any` （默认值）或 `Client` 。 框架将 `Cache-Control` 标头设置为位置值，后跟 `max-age` 响应的。
 
