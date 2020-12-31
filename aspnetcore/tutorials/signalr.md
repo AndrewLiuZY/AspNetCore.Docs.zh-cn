@@ -178,7 +178,7 @@ ASP.NET Core 3.1 共享框架中包含 SignalR 服务器库。 JavaScript 客户
 
 ## <a name="create-a-no-locsignalr-hub"></a>创建 SignalR 中心
 
-*中心* 是一个类，用作处理客户端 - 服务器通信的高级管道。
+*Hub* 是一个类，用作处理客户端 - 服务器通信的高级管道。
 
 * 在 SignalRChat 项目文件夹中，创建 Hubs 文件夹。
 
